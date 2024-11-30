@@ -47,3 +47,8 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
+
+# xaringan slides files
+slides_files/
+libs/
+*.html

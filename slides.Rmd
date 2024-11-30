@@ -1,0 +1,22 @@
+---
+title: "Visualising Data"
+subtitle: "The Good, the Bad, and the Ugly"
+author: "Josh Fogg"
+
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default", "edtheme.scss"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+
+# The Data Age
+
+Hello, world!

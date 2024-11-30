@@ -1,0 +1,26 @@
+/*
+  Small SCSS theme that provides University of Edinburgh branding
+  to R markdown presentations made with the `xaringan` package.
+  Released by Josh Fogg under a Creative Commons Zero (CC0) license.
+*/
+
+/* UoE's sans-serif brand font */
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
+body, h1, h2, h3 { font-family: "Source Sans 3", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* UoE does not have a monospace brand font so using Inconsolata. */
+@import url('https://fonts.googleapis.com/css?family=Inconsolata:400,700');
+.remark-code, .remark-inline-code { font-family: 'Inconsolata', monospace; color: #333}
+
+/* UoE 'university-blue' background for the feature slides */
+.inverse { background-color: #041E42; color: #d6d6d6; }
+
+/* UoE 'university-blue' for header text */
+h1, h2, h3 { color: #041E42; font-weight: 600; }
+
+/* UoE link color for use with 'university-blue' */
+a, a > code { color: #19b5fe; }
