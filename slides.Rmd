@@ -16,6 +16,7 @@ output:
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
 library(tidyverse)
+library(kableExtra)
 ```
 
 # The Data Age
@@ -61,7 +62,7 @@ Data from the 1974 _Motor Trend_ magazine, covering design and performance for 3
 knitr::kable(tail(mtcars), format = 'html')
 ```
 
-```{txt labels}
+```txt
 mpg:  Miles (US) gallon            qsec: 1/4 mile time
 cyl:  Number of cylinders          vs:   Engine (0 = V-shaped, 1 = straight)
 disp: Displacement (cu.in.)        am:   Transmission (0 = automatic, 1 = manual)
