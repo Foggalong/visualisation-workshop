@@ -254,7 +254,7 @@ mpg_bins <- as.data.frame(table(cut(mtcars$mpg, breaks=seq(5,40, by=5)), dnn="Ra
 knitr::kable(t(mpg_bins), format = 'html')
 ```
 
-Here `(a,b]` can be read as $a \lt x \leq b$.
+Here `(a,b]` can be read as $$a \lt x \leq b.$$
 
 ---
 
