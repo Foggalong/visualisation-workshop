@@ -171,14 +171,251 @@ ggplot(data.frame(cyl_freq), aes(x = hole_size, y = Freq, fill = Cylinders)) +
 
 ---
 
+# Comparing Continuous Data
 
+Looking at fuel consumption `mpg` and horsepower `hp`.
+
+```{r mpg-hp-table, echo=FALSE}
+knitr::kable(head(mtcars[,c(1,4,2), drop=FALSE], 8), format = 'html')
+```
+
+
+---
+
+# Scatter Plot
+
+Two continuous variables can be plotted on a grid, using values to determine location.
+
+```{r scatter-plot, echo=FALSE, fig.height=5.5, fig.width=9.06, dev='svg'}
+# plot features that will be common for both
+scatter_example <- ggplot(mtcars, aes(x = hp, y = mpg)) +
+  theme_minimal() +
+  labs(
+    title = "Scatter Plot of MPG against Horsepower",
+    x = "horsepower",
+    y = "miles per gallon",
+  ) +
+  ylim(0,35)
+
+# for first example, all point the same
+scatter_example + geom_point(size = 4, alpha=0.33, color="blue")
+```
+
+---
+
+# Scatter-Factor Plot
+
+We can also use other features like colour and point shape to display categories.
+
+
+```{r scatter-factor-plot, echo=FALSE, fig.height=5.5, fig.width=10, dev='svg'}
+# for second example, points coloured by cylinders
+scatter_example +
+  geom_point(aes(color = factor(cyl)), size = 4, alpha=0.33) +
+  labs(color="Cylinders") +
+  scale_color_manual(values = c(
+    "4" = "red",
+    "6" = "orange",
+    "8" = "blue")
+  )
+```
+
+---
+
+# Scatter Trend Plot
+
+We can also identify trend lines between continuous variables.
+
+```{r scatter-trend-plot, echo=FALSE, fig.height=5.5, fig.width=9.06, dev='svg'}
+# for second example, points coloured by cylinders
+scatter_example +
+  geom_point(size = 4, alpha=0.33, color="blue") +
+  geom_smooth(formula=y~I(log10(x)), method = "lm")
+```
+
+---
+
+# Continuous Frequencies
+
+Frequency tables for continuous variables aren't very useful.
+
+```{r mpg-freq, echo=FALSE}
+cyl_freq <- table(mtcars[,1], dnn=c("mpg"))
+
+knitr::kable(t(head(cyl_freq,20)), format = 'html') %>%
+  kable_styling(font_size = 14)
+```
+
+Instead, we collect the different values into 'bins'.
+
+```{r mpg-bins, echo=FALSE}
+mpg_bins <- as.data.frame(table(cut(mtcars$mpg, breaks=seq(5,40, by=5)), dnn="Range"))
+
+knitr::kable(t(mpg_bins), format = 'html')
+```
+
+Here `(a,b]` can be read as $a \lt x \leq b$.
+
+---
+
+# Histogram
+
+The area of each bar is proportional to the frequency in that 'bin'.
+
+```{r histogram-example, echo=FALSE, fig.height=5.5, fig.width=10, dev='svg'}
+ggplot(mtcars, aes(x = mpg)) +
+  theme_minimal() +
+  labs(
+    title = "Histogram of Fuel Efficiency",
+    x = "miles per gallon",
+    y = "frequency",
+  ) +
+  geom_histogram(binwidth = 5, boundary = 0, fill = "#041E42", colour = "white") +
+  xlim(10, 35) +
+  ylim(0, 13)
+```
+
+
+---
 class: inverse, middle, center
 
 # 2. More Complex Visualisations
 
 ---
 
-# Dummy
+# Time Series Data
+
+Monthly totals of deaths or serious injuries while driving in Great Britain, 1969 to 1984.
+
+```{r example-timeseries, echo=FALSE}
+dfSeatbelts <- data.frame(
+  # convert time series dates to character format
+  date = rownames(data.frame(.preformat.ts(Seatbelts), stringsAsFactors = FALSE)),
+  # drop the three columns we won't use
+  subset(Seatbelts, select = -c(DriversKilled, PetrolPrice, VanKilled))
+)
+
+knitr::kable(head(dfSeatbelts), format = 'html')
+```
+
+```txt
+date:     month and year of recorded data.
+drivers:  car drivers killed or seriously injured.
+front:    front-seat passengers killed or seriously injured.
+rear:     rear-seat passengers killed or seriously injured.
+kms:      distance driven
+law:      0/1: was wearing seatbelts compulsary?
+```
+
+---
+
+# Line Graphs
+
+Height of line is the value being tracked, with the date the compulsary seatbelt law came into effect (31 Jan 1983) highlighted.
+
+```{r linegraph-example, echo=FALSE, fig.height=5.5, fig.width=10, dev='svg'}
+linegraph <- ggplot(dfSeatbelts) +
+  theme_minimal() +
+  labs(
+    title = "Serious Car Accidents by Month",
+    x = "Date",
+    y = "Number",
+  ) +
+  geom_vline(xintercept=1983, col="orange", alpha=0.4, linewidth=2.5)
+
+linegraph + geom_line(aes(x=as.numeric(time(Seatbelts)), y=drivers), linewidth=1)
+```
+
+---
+
+# Multi-Line Graphs
+
+For multiple time series, we can plot each variable as a different line.
+
+```{r multilinegraph-example, echo=FALSE, fig.height=5.5, fig.width=10, dev='svg'}
+df <- dfSeatbelts %>%
+  pivot_longer(cols=c('drivers', 'front', 'rear'),
+               names_to='Passenger',
+               values_to='Deaths')
+
+# BUG messed up the dates on this one so had to hack this bit
+multi_plot <- ggplot(df, aes(x=1969+time(date)/36.05, y=Deaths)) +
+  theme_minimal() +
+  labs(
+    title = "Serious Car Accidents by Month",
+    x = "Date",
+    y = "Number",
+  ) +
+  scale_color_manual(
+    name='Passenger Type',
+    labels=c('Driver', 'Front Seat', 'Back Seat'),
+    values=c('red', 'purple', 'blue')
+  ) +
+  scale_fill_manual(
+    name='Passenger Type',
+    labels=c('Driver', 'Front Seat', 'Back Seat'),
+    values=c('red', 'purple', 'blue')
+  )
+
+multi_plot +
+  geom_line(aes(color=Passenger)) +
+  geom_vline(xintercept=1983, col="orange", alpha=0.4, linewidth=2.5)
+```
+
+---
+
+# Stacked Area Graphs
+
+Alternatively, we can plot them as areas stacked on top of one another.
+
+```{r stackplot-example, echo=FALSE, fig.height=5.5, fig.width=10, dev='svg'}
+multi_plot + geom_area(aes(fill=Passenger), position="stack") +
+  geom_vline(xintercept=1983, col="gray", linewidth=1)
+```
+
+---
+class: inverse, middle, center
+
+# Other Visualisation Types
+
+## (the weird ones)
+
+---
+
+# Sankey Diagrams
+
+Used to show how 'units' slow through a system or process.
+
+![Sankey Diagram of Napoleon's invasion of russia](examples/SankeyMinard.png)
+
+---
+
+# Sankey Diagrams
+
+More recently, Sankeys have become a popular way to display income and expenditure.
+
+```{r sankey-example, out.width=650, out.height=400, echo=FALSE}
+knitr::include_graphics("examples/GM9_kipXkAA9RZs.jpg")
+```
+
+---
+
+# Treemaps
+
+An alternative to bar or pie charts for more complicated systems
+
+
+| United Kingdom Product Exports (2019) | Key |
+|:-- | :-- |
+| ![Treemap of the UK exports in 2019.](examples/United_Kingdom_Product_Exports_2019.svg) | ![Key for said treemap.](examples/export_key.png) |
+
+---
+
+# (Actual) Maps
+
+| Solar Potential (2021) | Swine Flu Cases (2009) | Constituencies (2019) |
+| :--------------------- | :--------------------- | :-------------------- |
+|![](examples/United-Kingdom_PVOUT_Photovoltaic-power-potential-map_GlobalSolarAtlas_World-Bank-Esmap-Solargis.png)|![](examples/H1N1_United_Kingdom_Map_-_Region_3.svg)|![](examples/2019_UK_general_election_constituency_map.svg)|
 
 
 ---
@@ -188,4 +425,4 @@ class: inverse, middle, center
 
 ---
 
-# Dummy
+# End
