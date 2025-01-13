@@ -171,6 +171,16 @@ ggplot(data.frame(cyl_freq), aes(x = hole_size, y = Freq, fill = Cylinders)) +
 
 ---
 
+# Beware the Pie Chart
+
+Pie charts are more difficult to compare than bar charts.
+
+```{r bad-pies, out.width=650, out.height=400, echo=FALSE}
+knitr::include_graphics("examples/pies_are_bad.svg")
+```
+
+---
+
 # Comparing Continuous Data
 
 Looking at fuel consumption `mpg` and horsepower `hp`.
@@ -423,6 +433,44 @@ class: inverse, middle, center
 
 # 3. Spotting Misleading Features
 
+
 ---
+
+# Pie Charts
+
+Two typical examples of how pie charts are misused.
+
+| Example 1 | Example 2 |
+| :-------: | :-------: |
+| ![](examples/bad_pie1.png) | ![](examples/bad_pie2.jpg) 
+
+---
+
+# Bar Charts
+
+Changing the $y$-axis can have a significant impact on bar charts.
+
+![](examples/blog-misleading-y-axis.png)
+
+---
+
+# Line Graphs
+
+It can also impact line graphs, especially with multiple variables displayed. 
+
+![](examples/economist-linegraph.png)
+
+---
+
+# Exercise
+
+For the examples we have here consider:
+
+### 1. Which are misleading?
+### 2. What might be the impact be?
+### 3. How could it be fixed?
+
+---
+class: inverse, middle, center
 
 # End
