@@ -23,7 +23,7 @@ library(kableExtra)
 
 Data is **everywhere**. It's part of our news and our politics.
 
-|![BBC area plot of China population statistics.](examples/bbc-china.png)|![Conservative Party election leaflet featured in the Guardian.](examples/election.png)|
+|![BBC area plot of China population statistics.](examples/bbc2019.png)|![Conservative Party election leaflet featured in the Guardian.](examples/adu2024.png)|
 |:-:|:-:|
 |BBC Visual and Data Journalism (2019)|Conservative Party Leaflet (2024)|
 
@@ -33,7 +33,7 @@ Data is **everywhere**. It's part of our news and our politics.
 
 Data is **everywhere**. It's part of important everyday information.
 
-|![Mockup of Scottish Power's Energy Insights dashboard.](examples/power.png)|![Mockup of Monzo's bank statement visuals.](examples/monzo.jpeg)|
+|![Mockup of Scottish Power's Energy Insights dashboard.](examples/scottishpower2022.png)|![Mockup of Monzo's bank statement visuals.](examples/monzo2022.jpeg)|
 |:-:|:-:|
 |Scottish Power Dashboard|Monzo Bank Statements|
 
@@ -176,7 +176,7 @@ ggplot(data.frame(cyl_freq), aes(x = hole_size, y = Freq, fill = Cylinders)) +
 Pie charts are more difficult to compare than bar charts.
 
 ```{r bad-pies, out.width=650, out.height=400, echo=FALSE}
-knitr::include_graphics("examples/pies_are_bad.svg")
+knitr::include_graphics("examples/schutz2007.svg")
 ```
 
 ---
@@ -396,7 +396,7 @@ class: inverse, middle, center
 
 Used to show how 'units' slow through a system or process.
 
-![Sankey Diagram of Napoleon's invasion of russia](examples/SankeyMinard.png)
+![Sankey Diagram of Napoleon's invasion of russia](examples/minard1869.png)
 
 ---
 
@@ -405,7 +405,7 @@ Used to show how 'units' slow through a system or process.
 More recently, Sankeys have become a popular way to display income and expenditure.
 
 ```{r sankey-example, out.width=650, out.height=400, echo=FALSE}
-knitr::include_graphics("examples/GM9_kipXkAA9RZs.jpg")
+knitr::include_graphics("examples/sankeyart2024.jpg")
 ```
 
 ---
@@ -417,7 +417,7 @@ An alternative to bar or pie charts for more complicated systems
 
 | United Kingdom Product Exports (2019) | Key |
 |:-- | :-- |
-| ![Treemap of the UK exports in 2019.](examples/United_Kingdom_Product_Exports_2019.svg) | ![Key for said treemap.](examples/export_key.png) |
+| ![Treemap of the UK exports in 2019.](examples/landry2021.svg) | ![Key for said treemap.](examples/landry2021_key.png) |
 
 ---
 
@@ -425,7 +425,7 @@ An alternative to bar or pie charts for more complicated systems
 
 | Solar Potential (2021) | Swine Flu Cases (2009) | Constituencies (2019) |
 | :--------------------- | :--------------------- | :-------------------- |
-|![](examples/United-Kingdom_PVOUT_Photovoltaic-power-potential-map_GlobalSolarAtlas_World-Bank-Esmap-Solargis.png)|![](examples/H1N1_United_Kingdom_Map_-_Region_3.svg)|![](examples/2019_UK_general_election_constituency_map.svg)|
+|![](examples/solargis2021.png)|![](examples/spaully2009.svg)|![](examples/odi2019.svg)|
 
 
 ---
@@ -442,7 +442,7 @@ Two typical examples of how pie charts are misused.
 
 | Example 1 | Example 2 |
 | :-------: | :-------: |
-| ![](examples/bad_pie1.png) | ![](examples/bad_pie2.jpg) 
+| ![A pie chart whose three slices do not add up 100%.](examples/trailhead2023.png) | ![A pie charts whose slices aren't proportional to the percentages represented.](examples/crappydesign2020.jpg) |
 
 ---
 
@@ -450,7 +450,7 @@ Two typical examples of how pie charts are misused.
 
 Changing the $y$-axis can have a significant impact on bar charts.
 
-![](examples/blog-misleading-y-axis.png)
+![Two bar plots of the same interest data but with different y axes; the first makes it appear growth is exponential, the second makes it appear there is no growth.](examples/zope2019.png)
 
 ---
 
@@ -458,7 +458,7 @@ Changing the $y$-axis can have a significant impact on bar charts.
 
 It can also impact line graphs, especially with multiple variables displayed. 
 
-![](examples/economist-linegraph.png)
+![Two plots of the same data on multi-scale axis. The first plots appears to show a perfect correlation between the variables, the second suggests that they are not strongly correlated.](examples/leo2019.png)
 
 ---
 
